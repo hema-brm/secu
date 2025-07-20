@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Sécurité Web</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: #667eea;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .welcome-card h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-card p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #f0fff4;
+            color: #2f855a;
+            border: 1px solid #c6f6d5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-info h2 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .info-value {
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .welcome-card h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/dashboard" class="navbar-brand">
+            <i class="fas fa-shield-alt"></i> Sécurité Web
+        </a>
+        <div class="navbar-nav">
+            <a href="/dashboard" class="nav-link">
+                <i class="fas fa-home"></i> Accueil
+            </a>
+            <a href="/auth/logout" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-card">
+            <h1><i class="fas fa-user-circle"></i> Bienvenue, <%= user.username %> !</h1>
+            <p>Vous êtes maintenant connecté au système de test de sécurité</p>
+            
+            <% if (typeof message !== 'undefined' && message) { %>
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i> <%= message %>
+                </div>
+            <% } %>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3><i class="fas fa-user-shield"></i> Statut de sécurité</h3>
+                <p>Votre compte est actuellement actif et sécurisé. Toutes les mesures de protection sont en place.</p>
+            </div>
+            
+            <div class="stat-card">
+                <h3><i class="fas fa-clock"></i> Dernière connexion</h3>
+                <p>
+                    <% if (user.lastLogin) { %>
+                        <%= new Date(user.lastLogin).toLocaleString('fr-FR') %>
+                    <% } else { %>
+                        Première connexion
+                    <% } %>
+                </p>
+            </div>
+            
+            <div class="stat-card">
+                <h3><i class="fas fa-info-circle"></i> Informations</h3>
+                <p>Ce tableau de bord vous permet de gérer votre compte et de surveiller votre activité.</p>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <h2><i class="fas fa-user-cog"></i> Informations du compte</h2>
+            
+            <div class="info-item">
+                <span class="info-label">Nom d'utilisateur :</span>
+                <span class="info-value"><%= user.username %></span>
+            </div>
+            
+            <% if (user.email) { %>
+                <div class="info-item">
+                    <span class="info-label">Email :</span>
+                    <span class="info-value"><%= user.email %></span>
+                </div>
+            <% } %>
+            
+            <div class="info-item">
+                <span class="info-label">Compte créé le :</span>
+                <span class="info-value">
+                    <% if (user.createdAt) { %>
+                        <%= new Date(user.createdAt).toLocaleDateString('fr-FR') %>
+                    <% } else { %>
+                        Date inconnue
+                    <% } %>
+                </span>
+            </div>
+            
+            <div class="info-item">
+                <span class="info-label">Dernière connexion :</span>
+                <span class="info-value">
+                    <% if (user.lastLogin) { %>
+                        <%= new Date(user.lastLogin).toLocaleString('fr-FR') %>
+                    <% } else { %>
+                        Première connexion
+                    <% } %>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.welcome-card, .stat-card, .user-info');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+        });
+    </script>
+</body>
+</html> 
