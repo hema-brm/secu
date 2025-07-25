@@ -107,10 +107,10 @@ L'opérateur `$ne` (not equal) de MongoDB peut être injecté pour contourner l'
 ### Démonstration de l'exploitation
 
 **Vidéo 1 : Exploitation de la vulnérabilité**
-<video width="100%" controls>
-  <source src="images/faille.mp4" type="video/mp4">
-  Votre navigateur ne supporte pas la lecture de vidéos.
-</video>
+
+[![Vidéo Exploitation Vulnérabilité](images/video_thumbnail_faille.jpg)](images/faille.mp4)
+
+*Cliquez sur l'image pour voir la vidéo de démonstration*
 
 Cette vidéo montre l'exploitation réussie de l'injection NoSQL avec le payload `{"$ne": null}`.
 
@@ -159,10 +159,10 @@ if (!emailRegex.test(email)) {
 ### Démonstration de la correction
 
 **Vidéo 2 : Test de la version sécurisée**
-<video width="100%" controls>
-  <source src="images/sans_faille.mp4" type="video/mp4">
-  Votre navigateur ne supporte pas la lecture de vidéos.
-</video>
+
+[![Vidéo Test Sécurisé](images/video_thumbnail_secure.jpg)](images/sans_faille.mp4)
+
+*Cliquez sur l'image pour voir la vidéo de démonstration*
 
 Cette vidéo montre que l'injection NoSQL est maintenant bloquée par les validations de sécurité.
 
@@ -216,7 +216,15 @@ Le script `deploy.sh` automatise l'ensemble du processus de déploiement.
 #### Test de la vulnérabilité
 
 ```bash
+# Installation des dépendances
 npm install
+
+# Démarrage de MongoDB avec Docker
+docker-compose up -d
+
+# Initialisation de la base de données
+npm run init-db
+
 # Démarrage de la version vulnérable
 npm start
 
@@ -228,7 +236,15 @@ npm start
 #### Test de la correction
 
 ```bash
+# Installation des dépendances
 npm install
+
+# Démarrage de MongoDB avec Docker
+docker-compose up -d
+
+# Initialisation de la base de données
+npm run init-db
+
 # Démarrage de la version sécurisée
 npm run start:secure
 
