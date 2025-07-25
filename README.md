@@ -107,7 +107,10 @@ L'opérateur `$ne` (not equal) de MongoDB peut être injecté pour contourner l'
 ### Démonstration de l'exploitation
 
 **Vidéo 1 : Exploitation de la vulnérabilité**
-[Voir la démonstration](images/faille.mp4)
+<video width="100%" controls>
+  <source src="images/faille.mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la lecture de vidéos.
+</video>
 
 Cette vidéo montre l'exploitation réussie de l'injection NoSQL avec le payload `{"$ne": null}`.
 
@@ -156,7 +159,10 @@ if (!emailRegex.test(email)) {
 ### Démonstration de la correction
 
 **Vidéo 2 : Test de la version sécurisée**
-[Voir la démonstration](images/sans_faille.mp4)
+<video width="100%" controls>
+  <source src="images/sans_faille.mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la lecture de vidéos.
+</video>
 
 Cette vidéo montre que l'injection NoSQL est maintenant bloquée par les validations de sécurité.
 
